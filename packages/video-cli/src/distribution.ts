@@ -32,6 +32,14 @@ export const videoCliDistribution: CliDistribution = {
       platform: { use: "@hypit/credential-store-platform" },
     },
     endpoints: {
+      "local-ai.default": {
+        use: "@hypit/provider-local-ai",
+        pool: "local-ai.default",
+        config: {
+          autodlToken: { store: "platform", key: "autodl.comfyui-h3" },
+          dashscopeApiKey: { store: "platform", key: "dashscope.qwen3-tts" },
+        },
+      },
       "hypihub.default": {
         use: "@hypit/provider-hypihub",
         config: {
@@ -45,6 +53,12 @@ export const videoCliDistribution: CliDistribution = {
       "hyperframes.local": {
         use: "@hypit/provider-hyperframes-local",
       },
+    },
+    bindings: {
+      "@hypit/gpt-image@1#gpt-image-2": "local-ai.default",
+      "@hypit/minimax-h3@1#minimax-h3": "local-ai.default",
+      "@hypit/mimo-speech@1#mimo-v2.5-tts-voicedesign": "local-ai.default",
+      "@hypit/mimo-speech@1#mimo-v2.5-tts-voiceclone": "local-ai.default",
     },
   },
   createCompiler: createVideoCompiler,
